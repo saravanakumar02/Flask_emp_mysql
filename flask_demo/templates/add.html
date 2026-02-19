@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Add Employee</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        form {
+            background-color: #f9f9f9;
+            padding: 20px;
+            border: 1px solid #ddd;
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0;
+        }
+
+        button {
+            margin-top: 15px;
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        a {
+            color: #007bff;
+            text-decoration: none;
+            margin-left: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>Add Employee</h2>
+    <form method="POST">
+        <label>Name:</label>
+        <input type="text" name="name" required>
+
+        <label>Email:</label>
+        <input type="email" name="email" required>
+
+        <label>Phone:</label>
+        <input type="text" name="phone" required>
+
+        <label>Department:</label>
+        <select name="department_id" required>
+            <option value="">Select Department</option>
+            {% for dept in departments %}
+            <option value="{{ dept[0] }}">{{ dept[1] }}</option>
+            {% endfor %}
+        </select>
+
+        <button type="submit">Save</button>
+        <a href="/">Back</a>
+    </form>
+</body>
+
+</html>

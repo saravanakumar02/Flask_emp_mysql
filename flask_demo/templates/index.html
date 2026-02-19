@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Employees</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        .flash-messages {
+            margin: 20px 0;
+        }
+
+        .alert {
+            padding: 12px;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+
+        .alert-success {
+            background-color: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+        }
+
+        .alert-error {
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        table th,
+        table td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+
+        table th {
+            background-color: #f2f2f2;
+        }
+
+        a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>Employee List</h2>
+
+    {% if error %}
+    <div class="flash-messages">
+        <div class="alert alert-error">{{ error }}</div>
+    </div>
+    {% endif %}
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    <div class="flash-messages">
+        {% for category, message in messages %}
+        <div class="alert alert-{{ category }}">{{ message }}</div>
+        {% endfor %}
+    </div>
+    {% endif %}
+    {% endwith %}
+
+    <a href="/add"><button>Add Employee</button></a>
+
+    {% if employees %}
+    <table border="1" cellpadding="10">
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Department</th>
+            <th>Actions</th>
+        </tr>
+
+        {% for emp in employees %}
+        <tr>
+            <td>{{ emp[0] }}</td>
+            <td>{{ emp[1] }}</td>
+            <td>{{ emp[2] }}</td>
+            <td>{{ emp[3] }}</td>
+            <td>{{ emp[4] }}</td>
+            <td>
+                <a href="/edit/{{ emp[0] }}">Edit</a> |
+                <a href="/delete/{{ emp[0] }}" onclick="return confirm('Are you sure?')">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% else %}
+    <p>No employees found. <a href="/add">Add one now</a></p>
+    {% endif %}
+</body>
+
+</html>
